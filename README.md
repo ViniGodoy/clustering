@@ -6,9 +6,12 @@ Contains the knn clustering algorithm. The MainKmeans file demonstrates how to u
 
 ## Screenshots
 
-### Five class kmeans classification.
+### Clustering with 5 classes
 
 ![k-means](https://lh3.googleusercontent.com/-ziY2mNER2kA/Uq21hzHXktI/AAAAAAAAAx8/cTotyNTPGAQ/w904-h1130-no/field+5+classes.png)
+
+ 1. Top: Original image
+ 2. Bottom: Classification result
 
 ## Change History
 
