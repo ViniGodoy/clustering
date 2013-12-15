@@ -54,7 +54,7 @@ public class MainKmeans {
 
         //First: Transform each image pixel in a 3d vector containing image r, g and b components.
         List<Vector> colors = new ArrayList<>();
-        assert img != null;
+
         for (int y = 0; y < img.getHeight(); y++) {
             for (int x = 0; x < img.getWidth(); x++) {
                 Color c = new Color(img.getRGB(x, y));
