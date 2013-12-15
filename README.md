@@ -2,7 +2,7 @@
 
 ## Project description
 
-Contains the knn clustering algorithm. The MainKmeans file demonstrates how to use kmeans to classify an image.
+Contains the k-means clustering algorithm. The MainKmeans file demonstrates how to use k-means to classify an image.
 
 ## Screenshots
 
