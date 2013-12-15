@@ -28,7 +28,7 @@ public final class Vector implements Cloneable {
     }
 
     public static Vector subtract(Vector v1, Vector v2) {
-        return v1.subtract(v2);
+        return v1.clone().subtract(v2);
     }
 
     public static Vector multiply(Vector v, double s) {
@@ -144,11 +144,11 @@ public final class Vector implements Cloneable {
 
 
     public double distance(Vector other) {
-        return subtract(other, this).getSize();
+        return subtract(this, other).getSize();
     }
 
     public double distanceSqr(Vector other) {
-        return subtract(other, this).getSizeSqr();
+        return subtract(this, other).getSizeSqr();
     }
 
     @Override
