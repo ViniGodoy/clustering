@@ -104,13 +104,13 @@ public abstract class CentroidClassifier {
 
     protected abstract void addToCentroid(Vector sample);
 
-    public int classify(Vector sample) {
-        int closest = -1;
+    public Centroid classify(Vector sample) {
+        Centroid closest = null;
         double closestDistance = Integer.MAX_VALUE;
 
         for (Centroid c : centroids)
             if (c.distance(sample) < closestDistance) {
-                closest = c.getNumber();
+                closest = c;
                 closestDistance = c.distance(sample);
             }
 

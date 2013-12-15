@@ -34,10 +34,6 @@ public class MainKmeans {
             showHelp(e.getMessage());
         }
 
-        if (classNumber > 7) {
-            showHelp("Number of classes cannot be bigger than 7!");
-        }
-
         File file = new File(args[1]);
         if (!file.exists())
             showHelp("File not found: " + file);
@@ -65,11 +61,6 @@ public class MainKmeans {
         //Create a kmeans classifier
         Kmeans kmeans = new Kmeans(classNumber, colors);
 
-        //Colors of each exit class
-        int[] exitColor = {Color.BLACK.getRGB(),
-                Color.RED.getRGB(), Color.GREEN.getRGB(), Color.BLUE.getRGB(),
-                Color.YELLOW.getRGB(), Color.MAGENTA.getRGB(), Color.CYAN.getRGB(),
-                Color.ORANGE.getRGB()};
 
         //Create the destination image
         BufferedImage dest = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -80,7 +71,9 @@ public class MainKmeans {
                 Vector amostra = new Vector(c.getRed(), c.getGreen(), c.getBlue());
 
                 //Classify the pixel and set it to the destionation image
-                dest.setRGB(x, y, exitColor[kmeans.classify(amostra)]);
+                Vector center = kmeans.classify(amostra).getCenter();
+                Color color = new Color((int) center.v[0], (int) center.v[1], (int) center.v[2]);
+                dest.setRGB(x, y, color.getRGB());
             }
 
             //Show some progress status
