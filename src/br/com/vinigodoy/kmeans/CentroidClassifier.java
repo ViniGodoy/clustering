@@ -92,12 +92,12 @@ public abstract class CentroidClassifier {
         }
     }
 
-    private double averageDistance(Vector amostra) {
+    private double averageDistance(Vector sample) {
         double soma = 0;
         for (Centroid c : centroids) {
-            if (amostra.equals(c.getCenter())) // Evita centroids iguais
+            if (sample.equals(c.getCenter())) // Avoids equal centroids
                 return -1;
-            soma += c.distance(amostra);
+            soma += c.distance(sample);
         }
         return soma / centroids.size();
     }

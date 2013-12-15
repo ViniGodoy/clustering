@@ -23,7 +23,31 @@ public final class Vector implements Cloneable {
         v = values;
     }
 
-    public Vector addMe(double... values) {
+    public static Vector add(Vector v1, Vector v2) {
+        return v1.clone().add(v2);
+    }
+
+    public static Vector subtract(Vector v1, Vector v2) {
+        return v1.subtract(v2);
+    }
+
+    public static Vector multiply(Vector v, double s) {
+        return v.clone().multiply(s);
+    }
+
+    public static Vector divide(Vector v, double s) {
+        return v.clone().divide(s);
+    }
+
+    public static Vector negate(Vector v) {
+        return v.clone().multiply(-1);
+    }
+
+    public static Vector normalize(Vector v) {
+        return v.clone().normalize();
+    }
+
+    public Vector add(double... values) {
         if (values.length != v.length) {
             throw new IllegalArgumentException("Trying to add different vectors! " + v.length + " != " + values.length);
         }
@@ -33,31 +57,20 @@ public final class Vector implements Cloneable {
         return this;
     }
 
-    public Vector addMe(Vector other) {
-        return addMe(other.v);
-    }
-
     public Vector add(Vector other) {
-        return clone().addMe(other);
+        return add(other.v);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o == null) {
-            return false;
-        }
-        if (o == this) {
-            return true;
-        }
-        if (o.getClass() != this.getClass()) {
-            return false;
-        }
+        return o == this ||
+                o != null &&
+                        o.getClass() == this.getClass() &&
+                        Arrays.equals(v, ((Vector) o).v);
 
-        Vector other = (Vector) o;
-        return Arrays.equals(v, other.v);
     }
 
-    public Vector subtractMe(double... values) {
+    public Vector subtract(double... values) {
         if (values.length != v.length) {
             throw new IllegalArgumentException("Trying to add different vectors!");
         }
@@ -67,36 +80,19 @@ public final class Vector implements Cloneable {
         return this;
     }
 
-    public Vector subtractMe(Vector other) {
-        return subtractMe(other.v);
-    }
-
     public Vector subtract(Vector other) {
-        return clone().subtractMe(other);
+        return subtract(other.v);
     }
 
-    public Vector multiplyMe(double c) {
+    public Vector multiply(double s) {
         for (int i = 0; i < v.length; ++i) {
-            v[i] *= c;
+            v[i] *= s;
         }
         return this;
-
     }
 
-    public Vector multiply(double c) {
-        return clone().multiplyMe(c);
-    }
-
-    public Vector divideMe(double c) {
-        return multiplyMe(1.0 / c);
-    }
-
-    public Vector divide(double t) {
-        return clone().divideMe(t);
-    }
-
-    public Vector negateMe() {
-        return multiplyMe(-1);
+    public Vector divide(double c) {
+        return multiply(1.0 / c);
     }
 
     public Vector negate() {
@@ -131,31 +127,28 @@ public final class Vector implements Cloneable {
     }
 
     public Vector setSize(double size) {
-        return size == 0 ? multiply(0) : normalizeMe().multiplyMe(size);
+        return size == 0 ? multiply(0) : normalize().multiply(size);
     }
 
     public Vector truncate(double size) {
         return getSizeSqr() > size * size ? setSize(size) : this;
     }
 
-    public Vector normalizeMe() {
+    public Vector normalize() {
         double size = getSize();
         if (size == 0) {
             return this;
         }
-        return divideMe(size);
+        return divide(size);
     }
 
-    public Vector normalize() {
-        return clone().normalizeMe();
-    }
 
     public double distance(Vector other) {
-        return other.subtract(this).getSize();
+        return subtract(other, this).getSize();
     }
 
     public double distanceSqr(Vector other) {
-        return other.subtract(this).getSizeSqr();
+        return subtract(other, this).getSizeSqr();
     }
 
     @Override
