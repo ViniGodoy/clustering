@@ -69,11 +69,11 @@ public abstract class CentroidClassifier {
             System.out.println();
             return false;
         }
-        double erro = calculateError(centroidesAntigos);
-        System.out.printf(" - Erro: %.5f%n", erro);
-        if (Double.isNaN(erro))
+        double error = calculateError(centroidesAntigos);
+        System.out.printf(" - Error: %.5f%n", error);
+        if (Double.isNaN(error))
             System.exit(1);
-        return erro <= tolerance;
+        return error <= tolerance;
     }
 
     private void createCentroids(int classNumber, List<Vector> samples) {
@@ -81,25 +81,28 @@ public abstract class CentroidClassifier {
 
         int num = 2;
         for (int i = 1; i < classNumber; i++) {
-            Vector maior = null;
-            double maiorDistancia = 0;
-            for (Vector amostra : samples) {
-                if (averageDistance(amostra) > maiorDistancia)
-                    maior = amostra;
+            Vector biggest = null;
+            double biggestDistance = 0;
+            for (Vector sample : samples) {
+                double avgDistance = averageDistance(sample);
+                if (avgDistance > biggestDistance) {
+                    biggest = sample;
+                    biggestDistance = avgDistance;
+                }
             }
-            centroids.add(new Centroid(num, maior));
+            centroids.add(new Centroid(num, biggest));
             num++;
         }
     }
 
     private double averageDistance(Vector sample) {
-        double soma = 0;
+        double sum = 0;
         for (Centroid c : centroids) {
             if (sample.equals(c.getCenter())) // Avoids equal centroids
                 return -1;
-            soma += c.distance(sample);
+            sum += c.distance(sample);
         }
-        return soma / centroids.size();
+        return sum / centroids.size();
     }
 
     protected abstract void addToCentroid(Vector sample);
