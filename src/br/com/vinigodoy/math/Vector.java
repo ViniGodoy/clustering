@@ -1,12 +1,10 @@
 /******************************************************************************
- *
  * COPYRIGHT Vin�cius G. Mendon�a ALL RIGHTS RESERVED.
- *
+ * <p>
  * This software cannot be copied, stored, distributed without Vinícius G.Mendonça prior authorization.
- *
+ * <p>
  * This file was made available on http://www.pontov.com.br and it is free to be restributed or used under Creative
  * Commons license 2.5 br: http://creativecommons.org/licenses/by-sa/2.5/br/
- *
  ******************************************************************************/
 package br.com.vinigodoy.math;
 
