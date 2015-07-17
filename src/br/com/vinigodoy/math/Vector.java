@@ -8,8 +8,9 @@
  * Commons license 2.5 br: http://creativecommons.org/licenses/by-sa/2.5/br/
  *
  ******************************************************************************/
-package br.com.vinigodoy.kmeans;
+package br.com.vinigodoy.math;
 
+import java.awt.*;
 import java.util.Arrays;
 
 public final class Vector implements Cloneable {
@@ -21,6 +22,14 @@ public final class Vector implements Cloneable {
             throw new IllegalArgumentException("Vectors should have at least 1 dimension!");
         }
         v = values;
+    }
+
+    public static Vector fromRGB(int rgb) {
+        return fromColor(new Color(rgb));
+    }
+
+    public static Vector fromColor(Color c) {
+        return new Vector(c.getRed(), c.getGreen(), c.getBlue());
     }
 
     public static Vector add(Vector v1, Vector v2) {

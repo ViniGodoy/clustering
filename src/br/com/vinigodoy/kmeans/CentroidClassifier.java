@@ -1,5 +1,7 @@
 package br.com.vinigodoy.kmeans;
 
+import br.com.vinigodoy.math.Vector;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

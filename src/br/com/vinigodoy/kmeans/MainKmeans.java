@@ -1,5 +1,7 @@
 package br.com.vinigodoy.kmeans;
 
+import br.com.vinigodoy.math.Vector;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;

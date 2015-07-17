@@ -1,5 +1,7 @@
 package br.com.vinigodoy.kmeans;
 
+import br.com.vinigodoy.math.Vector;
+
 import java.util.List;
 
 public class Kmeans extends CentroidClassifier {
