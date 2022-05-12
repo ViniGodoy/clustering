@@ -1,4 +1,6 @@
-package br.com.vinigodoy.clustering.type;
+package br.com.vinigodoy.clustering.data;
+
+import java.util.Comparator;
 
 /**
  * Do operations over a knn / kmeans element.
@@ -53,5 +55,9 @@ public interface ElementSolver<T> {
      */
     default Long cacheValue(T element) {
         return null;
+    }
+
+    default Comparator<T> createDistanceComparator(T element) {
+        return (e1, e2) -> Double.compare(distance(element, e1), distance(element, e2));
     }
 }

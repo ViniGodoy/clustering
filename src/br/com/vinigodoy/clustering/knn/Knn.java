@@ -1,7 +1,7 @@
 package br.com.vinigodoy.clustering.knn;
 
-import br.com.vinigodoy.clustering.type.DataOutput;
-import br.com.vinigodoy.clustering.type.ElementSolver;
+import br.com.vinigodoy.clustering.data.DataOutput;
+import br.com.vinigodoy.clustering.data.ElementSolver;
 
 import java.util.*;
 

@@ -1,6 +1,6 @@
 package br.com.vinigodoy.clustering.kmeans;
 
-import br.com.vinigodoy.clustering.type.ElementSolver;
+import br.com.vinigodoy.clustering.data.ElementSolver;
 
 public class Cluster<T> {
         private final int label;

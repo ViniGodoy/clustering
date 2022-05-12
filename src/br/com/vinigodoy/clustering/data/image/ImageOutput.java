@@ -1,23 +1,20 @@
-package br.com.vinigodoy.clustering.type.color;
+package br.com.vinigodoy.clustering.data.image;
 
 import br.com.vinigodoy.clustering.kmeans.Kmeans;
-import br.com.vinigodoy.clustering.type.DataOutput;
+import br.com.vinigodoy.clustering.data.DataOutput;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
 
-public class ImageFileOutput implements DataOutput<RGB> {
+public class ImageOutput implements DataOutput<RGB> {
     private static final int[] COLORS = {
-        0x9ba37e, 0xb49255, 0xf39c12, 0xe67e22,
-        0xd35400, 0xe74c3c, 0xc0392b, 0xa94136,
-        0xf69785, 0xec87bf, 0xd870ad, 0x9b59b6,
-        0x8e44ad, 0x563aa7, 0x3d277a, 0x510c0c,
-        0x2ecc71, 0x1abc9c, 0x16a085, 0x27ae60,
-        0x7f8c8d, 0x587c7e, 0x34495e, 0x2c3e50,
-        0x3498db, 0x2980b9, 0x0f1386, 0x050851,
-        0x515151, 0x303030, 0x212121, 0x000000
+        0xff0000, 0x00ff00, 0x0000ff, 0x00ffff, 0xff00ff, 0xffff00, 0xffffff,
+        0x9ba37e, 0xd35400, 0xf69785, 0x8e44ad, 0x2ecc71, 0x7f8c8d, 0x3498db,
+        0xb49255, 0xe74c3c, 0xec87bf, 0x563aa7, 0x1abc9c, 0x587c7e, 0x2980b9,
+        0xf39c12, 0xc0392b, 0xd870ad, 0x3d277a, 0x16a085, 0x34495e, 0x0f1386,
+        0xe67e22, 0xa94136, 0x9b59b6, 0x510c0c, 0x27ae60, 0x2c3e50, 0x050851
     };
 
     private final BufferedImage img;
@@ -26,12 +23,12 @@ public class ImageFileOutput implements DataOutput<RGB> {
     private final HashMap<Integer, Integer> labelColors = new HashMap<>();
 
 
-    public ImageFileOutput(int w, int h, String path) {
+    public ImageOutput(int w, int h, String path) {
         this.img = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
         this.path = path.endsWith(".png") ? path : path + ".png";
     }
 
-    public ImageFileOutput setLabelColor(int label, int color) {
+    public ImageOutput setLabelColor(int label, int color) {
         labelColors.put(label, color);
         return this;
     }

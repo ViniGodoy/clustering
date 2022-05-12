@@ -1,4 +1,4 @@
-package br.com.vinigodoy.clustering.type.color;
+package br.com.vinigodoy.clustering.data.image;
 
 public class RGB {
     protected final int r;

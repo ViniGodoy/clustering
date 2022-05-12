@@ -6,7 +6,7 @@
  * This file was made available on http://www.pontov.com.br and it is free to be restributed or used under Creative
  * Commons license 2.5 br: http://creativecommons.org/licenses/by-sa/2.5/br/
  ******************************************************************************/
-package br.com.vinigodoy.clustering.type.vector;
+package br.com.vinigodoy.clustering.data.vector;
 
 import java.awt.*;
 import java.util.Arrays;

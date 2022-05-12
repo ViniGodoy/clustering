@@ -9,9 +9,9 @@ import br.com.vinigodoy.clustering.data.image.RGBSolver;
  * Shows how to use knn to classify an image in 3 classes.
  */
 public class KnnWithImage {
+    private static final int SOIL = 0;
     private static final int PLANT = 1;
-    private static final int SOIL = 2;
-    private static final int SKY = 3;
+    private static final int SKY = 2;
 
     public static void main(String[] args) throws Exception {
         //Load the image using an image data source
@@ -48,10 +48,10 @@ public class KnnWithImage {
                 new RGB(196, 210, 231)
             );
 
-            //Label colors in output. If you ommit this lines, random colors will be used.
-            out.setLabelColor(SKY, 0x0000FF) //Blue
-                .setLabelColor(PLANT, 0x00FF00) //Green
-                .setLabelColor(SOIL, 0xFF0000); //Red
+            //Label colors in output. If you ommit this line, random colors will be used.
+            out.setLabelColor(SKY, 0x87ceeb) //Blue
+                .setLabelColor(PLANT, 0x4b8b3b) //Green
+                .setLabelColor(SOIL, 0x855723); //Brown
 
             //Since several pixels have the same color, and RGB is a cacheable data type, activate the cache to reduce
             //classification effort.

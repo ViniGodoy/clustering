@@ -1,3 +1,2 @@
-Manifest-Version: 1.0
-Main-Class: br.com.vinigodoy.samples.kmeans.MainKmeans
-
+Manifest-Version: 2.0
+Main-Class: br.com.vinigodoy.samples.KMeansWithImage

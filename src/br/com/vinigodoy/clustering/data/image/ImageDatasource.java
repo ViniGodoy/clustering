@@ -1,9 +1,13 @@
-package br.com.vinigodoy.clustering.type.color;
+package br.com.vinigodoy.clustering.data.image;
+
+import br.com.vinigodoy.clustering.kmeans.CentroidSelector;
+import br.com.vinigodoy.clustering.kmeans.Selectors;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 
@@ -22,8 +26,26 @@ public class ImageDatasource implements Iterable<RGB> {
         }
     }
 
-    public ImageFileOutput createOutput(String path) {
-        return new ImageFileOutput(image.getWidth(), image.getHeight(), path);
+    public ImageOutput createOutput(String path) {
+        return new ImageOutput(image.getWidth(), image.getHeight(), path);
+    }
+
+    /**
+     * A more efficient random centroid selection strategy for this image.
+     * Pixels are chosen at a random line and column, directly from the image.
+     *
+     * @return The centroids.
+     */
+    public CentroidSelector<RGB> random() {
+        return ((data, classes) -> {
+            final var centroids = new ArrayList<RGB>();
+            for (var i = 0; i < classes; i++) {
+                final var x = Selectors.RND.nextInt(image.getWidth());
+                final var y = Selectors.RND.nextInt(image.getHeight());
+                centroids.add(new RGB(image.getRGB(x, y)));
+            }
+            return centroids;
+        });
     }
 
     @Override

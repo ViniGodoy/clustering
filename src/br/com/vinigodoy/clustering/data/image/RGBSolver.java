@@ -1,6 +1,6 @@
-package br.com.vinigodoy.clustering.type.color;
+package br.com.vinigodoy.clustering.data.image;
 
-import br.com.vinigodoy.clustering.type.ElementSolver;
+import br.com.vinigodoy.clustering.data.ElementSolver;
 
 public class RGBSolver implements ElementSolver<RGB> {
     @Override

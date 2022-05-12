@@ -1,22 +1,25 @@
 package br.com.vinigodoy.clustering.kmeans;
 
-import br.com.vinigodoy.clustering.type.DataOutput;
-import br.com.vinigodoy.clustering.type.ElementSolver;
+import br.com.vinigodoy.clustering.data.DataOutput;
+import br.com.vinigodoy.clustering.data.ElementSolver;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.random.RandomGenerator;
 import java.util.stream.Collectors;
 
 public class Kmeans<T> {
-    private static final RandomGenerator RND = RandomGenerator.getDefault();
-
     private final ElementSolver<T> solver;
     private List<Cluster<T>> clusters;
     private double tolerance = 0.01;
+    private CentroidSelector<T> centroidSelector;
 
     public Kmeans(ElementSolver<T> solver) {
+        this(solver, Selectors.random());
+    }
+
+    public Kmeans(ElementSolver<T> solver, CentroidSelector<T> selector) {
         this.solver = solver;
+        this.centroidSelector = selector;
     }
 
     public Kmeans<T> setTolerance(double tolerance) {
@@ -28,17 +31,24 @@ public class Kmeans<T> {
         return tolerance;
     }
 
+    public Kmeans<T> setCentroidSelector(CentroidSelector<T> centroidSelector) {
+        this.centroidSelector = centroidSelector;
+        return this;
+    }
+
+    public CentroidSelector<T> getCentroidSelector() {
+        return centroidSelector;
+    }
+
     public List<Cluster<T>> getClusters() {
         return List.copyOf(clusters);
     }
 
     private void createRandomClusters(Iterable<T> data, int classes) {
-        final var ds = new ArrayList<T>();
-        data.forEach(ds::add);
-
+        final var centroids = centroidSelector.initialCentroids(data, classes);
         clusters = new ArrayList<>();
         for (var i = 0; i < classes; i++) {
-            clusters.add(new Cluster<>(i+1, ds.get(RND.nextInt(ds.size())), solver));
+            clusters.add(new Cluster<>(i+1, centroids.get(i), solver));
         }
     }
 
