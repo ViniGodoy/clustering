@@ -6,14 +6,14 @@
  * This file was made available on http://www.pontov.com.br and it is free to be restributed or used under Creative
  * Commons license 2.5 br: http://creativecommons.org/licenses/by-sa/2.5/br/
  ******************************************************************************/
-package br.com.vinigodoy.math;
+package br.com.vinigodoy.clustering.type.vector;
 
 import java.awt.*;
 import java.util.Arrays;
 
 public final class Vector implements Cloneable {
 
-    public double v[];
+    public double[] v;
 
     public Vector(double... values) {
         if (values.length < 1) {
@@ -58,7 +58,7 @@ public final class Vector implements Cloneable {
         if (values.length != v.length) {
             throw new IllegalArgumentException("Trying to add different vectors! " + v.length + " != " + values.length);
         }
-        for (int i = 0; i < values.length; ++i) {
+        for (var i = 0; i < values.length; ++i) {
             v[i] += values[i];
         }
         return this;
@@ -81,7 +81,7 @@ public final class Vector implements Cloneable {
         if (values.length != v.length) {
             throw new IllegalArgumentException("Trying to add different vectors!");
         }
-        for (int i = 0; i < values.length; ++i) {
+        for (var i = 0; i < values.length; ++i) {
             v[i] -= values[i];
         }
         return this;
@@ -92,7 +92,7 @@ public final class Vector implements Cloneable {
     }
 
     public Vector multiply(double s) {
-        for (int i = 0; i < v.length; ++i) {
+        for (var i = 0; i < v.length; ++i) {
             v[i] *= s;
         }
         return this;
@@ -112,7 +112,7 @@ public final class Vector implements Cloneable {
         }
 
         double sum = 0;
-        for (int i = 0; i < v.length; ++i) {
+        for (var i = 0; i < v.length; ++i) {
             sum += v[i] * other.v[i];
         }
 
@@ -122,7 +122,7 @@ public final class Vector implements Cloneable {
     public double getSizeSqr() {
         double sum = 0;
 
-        for (double value : v) {
+        for (var value : v) {
             sum += value * value;
         }
 
@@ -142,7 +142,7 @@ public final class Vector implements Cloneable {
     }
 
     public Vector normalize() {
-        double size = getSize();
+        final var size = getSize();
         if (size == 0) {
             return this;
         }
@@ -160,8 +160,7 @@ public final class Vector implements Cloneable {
 
     @Override
     protected Vector clone() {
-        double copy[] = Arrays.copyOf(v, v.length);
-        return new Vector(copy);
+        return new Vector(Arrays.copyOf(v, v.length));
     }
 
     public double[] toArray() {
@@ -169,15 +168,15 @@ public final class Vector implements Cloneable {
     }
 
     private int doubleHash(double number) {
-        long value = Double.doubleToLongBits(number);
+        final var value = Double.doubleToLongBits(number);
         return (int) (value ^ value >>> 32);
     }
 
     @Override
     public int hashCode() {
-        final int prime = 17;
-        int result = 1;
-        for (double value : v) {
+        final var prime = 17;
+        var result = 1;
+        for (var value : v) {
             result = prime * result + doubleHash(value);
         }
         return result;
@@ -189,10 +188,10 @@ public final class Vector implements Cloneable {
     }
 
     public String toString(String numberFormat) {
-        StringBuilder sb = new StringBuilder("[");
+        final var sb = new StringBuilder("[");
         sb.append(String.format(numberFormat, v[0]));
-        String nFormat = " " + numberFormat;
-        for (int i = 1; i < v.length; ++i) {
+        final var nFormat = " " + numberFormat;
+        for (var i = 1; i < v.length; ++i) {
             sb.append(String.format(nFormat, v[i]));
         }
         return sb.append("]").toString();

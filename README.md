@@ -2,17 +2,16 @@
 
 ## Project description
 
-Contains the k-means clustering algorithm. The MainKmeans file demonstrates how to use k-means to classify an image.
+Contains knn classification and k-means clustering algorithms.
 
 ## Screenshots
 
 ### Clustering with 5 classes
-
-![k-means](https://lh4.googleusercontent.com/-mHR141svE5k/Uq27ei97zQI/AAAAAAAAAyk/gSMLpeVNYSI/w904-h1130-no/field+5+classes.png)
 
  1. Top: Original image
  2. Bottom: Classification result
 
 ## Change History
 
+- 11/mai/2022 - Full rewrite of the project. 
 - 15/dez/2013 - Translated to english and inserted in GitHub
