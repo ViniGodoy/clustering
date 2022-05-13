@@ -22,14 +22,14 @@ For this example, we use the following RGB samples for each class:
 
 A k=3 results in the following output:
 
-<img src="/images/field.jpg" alt="original" width="400" height="300"/>&nbsp<img src="/images/knn-field.jpg" alt="knn with 3 classes" width="400" height="300"/>
+<img src="/images/field.jpg" alt="original" width="400" height="300"/> <img src="/images/knn-field.png" alt="knn with 3 classes" width="400" height="300"/>
 
 ### K-means with 20 classes
 
 This sample use k-means to simplify the image into just 20 colors. Closest point to centroid is used as the color of 
 each class:
 
-<img src="/images/field.jpg" alt="original" width="400" height="300"/>&nbsp<img src="/images/kmeans-20-field.png" alt="Kmeans 20 classes" width="400" height="300"/>
+<img src="/images/field.jpg" alt="original" width="400" height="300"/> <img src="/images/kmeans-20-field.png" alt="Kmeans 20 classes" width="400" height="300"/>
 
 ## Change History
 
