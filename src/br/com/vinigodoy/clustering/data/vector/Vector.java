@@ -1,15 +1,7 @@
-/******************************************************************************
- * COPYRIGHT Vin�cius G. Mendon�a ALL RIGHTS RESERVED.
- * <p>
- * This software cannot be copied, stored, distributed without Vinícius G.Mendonça prior authorization.
- * <p>
- * This file was made available on http://www.pontov.com.br and it is free to be restributed or used under Creative
- * Commons license 2.5 br: http://creativecommons.org/licenses/by-sa/2.5/br/
- ******************************************************************************/
 package br.com.vinigodoy.clustering.data.vector;
 
-import java.awt.*;
 import java.util.Arrays;
+import java.util.Objects;
 
 public final class Vector implements Cloneable {
 
@@ -20,14 +12,6 @@ public final class Vector implements Cloneable {
             throw new IllegalArgumentException("Vectors should have at least 1 dimension!");
         }
         v = values;
-    }
-
-    public static Vector fromRGB(int rgb) {
-        return fromColor(new Color(rgb));
-    }
-
-    public static Vector fromColor(Color c) {
-        return new Vector(c.getRed(), c.getGreen(), c.getBlue());
     }
 
     public static Vector add(Vector v1, Vector v2) {
@@ -70,11 +54,7 @@ public final class Vector implements Cloneable {
 
     @Override
     public boolean equals(Object o) {
-        return o == this ||
-                o != null &&
-                        o.getClass() == this.getClass() &&
-                        Arrays.equals(v, ((Vector) o).v);
-
+        return o.getClass() == getClass() && Objects.equals(this, o);
     }
 
     public Vector subtract(double... values) {
@@ -120,7 +100,7 @@ public final class Vector implements Cloneable {
     }
 
     public double getSizeSqr() {
-        double sum = 0;
+        var sum = 0.0;
 
         for (var value : v) {
             sum += value * value;
@@ -149,7 +129,6 @@ public final class Vector implements Cloneable {
         return divide(size);
     }
 
-
     public double distance(Vector other) {
         return subtract(this, other).getSize();
     }
@@ -167,19 +146,9 @@ public final class Vector implements Cloneable {
         return Arrays.copyOf(v, v.length);
     }
 
-    private int doubleHash(double number) {
-        final var value = Double.doubleToLongBits(number);
-        return (int) (value ^ value >>> 32);
-    }
-
     @Override
     public int hashCode() {
-        final var prime = 17;
-        var result = 1;
-        for (var value : v) {
-            result = prime * result + doubleHash(value);
-        }
-        return result;
+        return Arrays.hashCode(v);
     }
 
     @Override

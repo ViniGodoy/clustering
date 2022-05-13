@@ -23,7 +23,7 @@ public class Cluster<T> {
         protected void add(T element) {
             count += 1;
             if (sum == null) sum = element;
-            else sum = solver.add(sum, element);
+            else solver.accumulate(sum, element);
 
             final var distance = solver.distance(element, centroid);
             distances += distance;

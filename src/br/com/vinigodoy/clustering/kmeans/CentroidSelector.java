@@ -1,6 +1,6 @@
 package br.com.vinigodoy.clustering.kmeans;
 
-import java.util.List;
+import java.util.random.RandomGenerator;
 
 /**
  * Chooses k-means initial centroids.
@@ -8,12 +8,16 @@ import java.util.List;
  */
 public interface CentroidSelector<T> {
     /**
+     * Random generator for centroid selection.
+     */
+    RandomGenerator RND = RandomGenerator.getDefault();
+    /**
      * Select count centroids from the dataset.
      * @param data The dataset.
      * @param count Number of centroids to be select
      * @return The centroid list
      */
-    List<T> initialCentroids(Iterable<T> data, int count);
+    Iterable<T> initialCentroids(Iterable<T> data, int count);
 
 }
 

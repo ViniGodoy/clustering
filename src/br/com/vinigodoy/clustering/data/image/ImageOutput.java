@@ -1,11 +1,12 @@
 package br.com.vinigodoy.clustering.data.image;
 
-import br.com.vinigodoy.clustering.kmeans.Kmeans;
 import br.com.vinigodoy.clustering.data.DataOutput;
+import br.com.vinigodoy.clustering.kmeans.Kmeans;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class ImageOutput implements DataOutput<RGB> {
@@ -28,9 +29,12 @@ public class ImageOutput implements DataOutput<RGB> {
         this.path = path.endsWith(".png") ? path : path + ".png";
     }
 
-    public ImageOutput setLabelColor(int label, int color) {
+    public void setLabelColor(int label, int color) {
         labelColors.put(label, color);
-        return this;
+    }
+
+    public void setLabelsColors(int ... colors) {
+        for (var i = 0; i < colors.length; i++) setLabelColor(i, colors[i]);
     }
 
     public void setColorsByClosest(Kmeans<RGB> kmeans) {

@@ -1,15 +1,15 @@
 package br.com.vinigodoy.clustering.data.image;
 
 import br.com.vinigodoy.clustering.kmeans.CentroidSelector;
-import br.com.vinigodoy.clustering.kmeans.Selectors;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 
+import static br.com.vinigodoy.clustering.kmeans.CentroidSelector.RND;
 
 public class ImageDatasource implements Iterable<RGB> {
     private final BufferedImage image;
@@ -32,16 +32,17 @@ public class ImageDatasource implements Iterable<RGB> {
 
     /**
      * A more efficient random centroid selection strategy for this image.
-     * Pixels are chosen at a random line and column, directly from the image.
+     * Pixels are chosen at a random line and column, directly from the image. Guarantees that selected pixels are
+     * different.
      *
      * @return The centroids.
      */
     public CentroidSelector<RGB> random() {
         return ((data, classes) -> {
-            final var centroids = new ArrayList<RGB>();
-            for (var i = 0; i < classes; i++) {
-                final var x = Selectors.RND.nextInt(image.getWidth());
-                final var y = Selectors.RND.nextInt(image.getHeight());
+            final var centroids = new HashSet<RGB>();
+            while (centroids.size() < classes) {
+                final var x = RND.nextInt(image.getWidth());
+                final var y = RND.nextInt(image.getHeight());
                 centroids.add(new RGB(image.getRGB(x, y)));
             }
             return centroids;

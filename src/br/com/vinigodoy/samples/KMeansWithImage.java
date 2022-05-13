@@ -1,11 +1,11 @@
 package br.com.vinigodoy.samples;
 
-import br.com.vinigodoy.clustering.data.image.*;
-
+import br.com.vinigodoy.clustering.data.image.ImageDatasource;
+import br.com.vinigodoy.clustering.data.image.RGBSolver;
 import br.com.vinigodoy.clustering.kmeans.Kmeans;
 
 /**
- * Shows how to use k-means to simplify colors in a image
+ * Shows how to use k-means to simplify colors in an image
  */
 public class KMeansWithImage {
     private static final int CLUSTERS = 20;
@@ -19,9 +19,9 @@ public class KMeansWithImage {
         // original image
         try (var out = ds.createOutput(name)) {
             //Create the kmeans object. Since we'll use images, we select the RGB solver.
+            //Use an efficient random centroid selector for images
             final var kmeans =
-                    new Kmeans<>(new RGBSolver())
-                            .setCentroidSelector(ds.random()) //Use an efficient random centroid selector for images
+                    new Kmeans<>(new RGBSolver(), ds.random())
                             .train(ds, CLUSTERS); //Do the trainig
 
             //Set the output color based on the closest point to each centroid. This will guarantee that only colors

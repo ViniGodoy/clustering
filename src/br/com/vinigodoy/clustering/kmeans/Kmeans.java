@@ -11,11 +11,7 @@ public class Kmeans<T> {
     private final ElementSolver<T> solver;
     private List<Cluster<T>> clusters;
     private double tolerance = 0.01;
-    private CentroidSelector<T> centroidSelector;
-
-    public Kmeans(ElementSolver<T> solver) {
-        this(solver, Selectors.random());
-    }
+    private final CentroidSelector<T> centroidSelector;
 
     public Kmeans(ElementSolver<T> solver, CentroidSelector<T> selector) {
         this.solver = solver;
@@ -31,11 +27,6 @@ public class Kmeans<T> {
         return tolerance;
     }
 
-    public Kmeans<T> setCentroidSelector(CentroidSelector<T> centroidSelector) {
-        this.centroidSelector = centroidSelector;
-        return this;
-    }
-
     public CentroidSelector<T> getCentroidSelector() {
         return centroidSelector;
     }
@@ -47,8 +38,9 @@ public class Kmeans<T> {
     private void createRandomClusters(Iterable<T> data, int classes) {
         final var centroids = centroidSelector.initialCentroids(data, classes);
         clusters = new ArrayList<>();
-        for (var i = 0; i < classes; i++) {
-            clusters.add(new Cluster<>(i+1, centroids.get(i), solver));
+        var label = 0;
+        for (var centroid : centroids) {
+            clusters.add(new Cluster<>(label++, centroid, solver));
         }
     }
 

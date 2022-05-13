@@ -12,17 +12,14 @@ public class RGBSolver implements ElementSolver<RGB> {
     }
 
     @Override
-    public RGB add(RGB e1, RGB e2) {
-        return new RGB(e1.r + e2.r, e1.g + e2.g, e1.b + e2.b);
+    public void accumulate(RGB acc, RGB element) {
+        acc.r += element.r;
+        acc.g += element.g;
+        acc.b += element.b;
     }
 
     @Override
     public RGB divide(RGB e, int scalar) {
         return new RGB(e.r / scalar, e.g / scalar, e.b / scalar);
-    }
-
-    @Override
-    public Long cacheValue(RGB element) {
-        return (long) element.rgb();
     }
 }

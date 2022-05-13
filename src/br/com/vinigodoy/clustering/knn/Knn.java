@@ -1,37 +1,36 @@
 package br.com.vinigodoy.clustering.knn;
 
 import br.com.vinigodoy.clustering.data.DataOutput;
-import br.com.vinigodoy.clustering.data.ElementSolver;
+import br.com.vinigodoy.clustering.data.DistanceMeasurer;
 
 import java.util.*;
 
 public class Knn<T> {
     private record Sample<T>(int label, T element) {}
+
     private class DistanceComparator implements Comparator<Sample<T>> {
-        private final T element;
+        private final Comparator<T> comparator;
 
         public DistanceComparator(T element) {
-            this.element = element;
+            this.comparator = measurer.comparatorByDistance(element);
         }
 
         @Override
         public int compare(Sample<T> e1, Sample<T> e2) {
-            final var dist1 = solver.distance(element, e1.element());
-            final var dist2 = solver.distance(element, e2.element());
-            return Double.compare(dist1, dist2);
+            return comparator.compare(e1.element(), e2.element());
         }
     }
 
-    private final ElementSolver<T> solver;
-    private final Map<Long, Integer> cache = new HashMap<>();
+    private final DistanceMeasurer<T> measurer;
+    private final Map<Integer, Integer> cache = new HashMap<>();
     private final List<Sample<T>> samples = new ArrayList<>();
 
     private int k = 3;
     private boolean cached = false;
 
-    public Knn(ElementSolver<T> solver) {
-        if (solver == null) throw new IllegalArgumentException("You must provide a solver!");
-        this.solver = solver;
+    public Knn(DistanceMeasurer<T> measurer) {
+        if (measurer == null) throw new IllegalArgumentException("You must provide a solver!");
+        this.measurer = measurer;
     }
 
     public Knn<T> setK(int k) {
@@ -92,11 +91,9 @@ public class Knn<T> {
     public int classify(T element) {
         if (!isCached()) return findLabel(element);
 
-        final var cacheValue = solver.cacheValue(element);
-        if (cacheValue == null) return findLabel(element);
-
-        if (!cache.containsKey(cacheValue)) cache.put(cacheValue, findLabel(element));
-        return cache.get(cacheValue);
+        final var hash = element.hashCode();
+        if (!cache.containsKey(hash)) cache.put(hash, findLabel(element));
+        return cache.get(hash);
     }
 
     public Knn<T> classify(Iterable<T> data, DataOutput<T> output) {

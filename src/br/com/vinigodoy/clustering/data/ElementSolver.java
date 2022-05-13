@@ -1,7 +1,5 @@
 package br.com.vinigodoy.clustering.data;
 
-import java.util.Comparator;
-
 /**
  * Do operations over a knn / kmeans element.
  *
@@ -15,30 +13,21 @@ import java.util.Comparator;
  *
  * @param <T> The element type
  */
-public interface ElementSolver<T> {
+public interface ElementSolver<T> extends DistanceMeasurer<T> {
     /**
-     * Calculate the distance between two different elements
+     * Accumulate the value of the element, into an accumulator element. Equivalent to:
+     * accumulator += element;
      *
-     * @param element1 First element
-     * @param element2 Second element
-     * @return The distance
-     */
-    double distance(T element1, T element2);
-
-    /**
-     * Adds two elements together
-     *
-     * @param element1 First element to add
-     * @param element2 Second element to add
-     * @return a new element, with the sum
+     * @param acc Accumulator element
+     * @param element Element to add
      * @throws UnsupportedOperationException If this is a knn only solver.
      */
-    default T add(T element1, T element2) {
+    default void accumulate(T acc, T element) {
         throw new UnsupportedOperationException();
     }
 
     /**
-     * Divides the element by an scalar
+     * Divides the element by a scalar
      *
      * @param element The element to divide
      * @param scalar Scalar value
@@ -47,17 +36,5 @@ public interface ElementSolver<T> {
      */
     default T divide(T element, int scalar) {
         throw new UnsupportedOperationException();
-    }
-
-    /**
-     * Returns a value to be used in knn cache (if active). Elements with the same value will be considered equal.
-     * If null is returned, this element will never be cached.
-     */
-    default Long cacheValue(T element) {
-        return null;
-    }
-
-    default Comparator<T> createDistanceComparator(T element) {
-        return (e1, e2) -> Double.compare(distance(element, e1), distance(element, e2));
     }
 }
