@@ -22,9 +22,7 @@ public interface DataSource<T> {
      * @param <T> Element data type.
      */
     static <T> DataSource<T> of(Iterable<T> memoryIterable) {
-        return () -> {
-            return DataIterator.of(memoryIterable.iterator());
-        };
+        return () -> DataIterator.of(memoryIterable.iterator());
     }
 
     /**
