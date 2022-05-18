@@ -32,6 +32,10 @@ public class RGB {
         this.b = b;
     }
 
+    public RGB() {
+        this(0,0,0);
+    }
+
     /**
      * Construct a new gray RGB value using the same value for R, G and B.
      * @param tone The tone to use.

@@ -1,19 +1,25 @@
 package br.com.vinigodoy.clustering.data;
 
 /**
- * Do operations over a knn / kmeans element.
+ * Perform math operations in elements, allowing them to be used in algorithms such as k-means.
  *
- * For knn, the solver must be able to:
- * - Determine a distance between two elements
- * - Convert the element to a long value (for knn cache)
- *
- * For k-means the solver must also:
+ * The solver must:
+ * - Be able to create a zeroed element.
  * - Be able to sum elements
  * - Divide elements to a scalar value
+ * - Create a new zeroed element
+ * - Calculate distance between elements (see DistanceMeasurer interface)
  *
  * @param <T> The element type
+ * @see DistanceMeasurer
  */
 public interface ElementSolver<T> extends DistanceMeasurer<T> {
+    /**
+     * Creates a new zeroed element.
+     *
+     * @return A new zeroed element.
+     */
+    T create();
     /**
      * Accumulate the value of the element, into an accumulator element. Equivalent to:
      * accumulator += element;

@@ -11,6 +11,11 @@ public class RGBSolver implements ElementSolver<RGB> {
         return Math.sqrt(r*r + g*g + b*b);
     }
 
+    public RGB create() {
+        return new RGB();
+    }
+
+
     @Override
     public void accumulate(RGB acc, RGB element) {
         acc.r += element.r;

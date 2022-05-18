@@ -1,5 +1,7 @@
 package br.com.vinigodoy.clustering.kmeans;
 
+import br.com.vinigodoy.clustering.data.DataSource;
+
 import java.util.random.RandomGenerator;
 
 /**
@@ -17,7 +19,7 @@ public interface CentroidSelector<T> {
      * @param count Number of centroids to be select
      * @return The centroid list
      */
-    Iterable<T> initialCentroids(Iterable<T> data, int count);
+    Iterable<T> initialCentroids(DataSource<T> data, int count);
 
 }
 

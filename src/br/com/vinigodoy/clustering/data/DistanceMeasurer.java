@@ -2,6 +2,14 @@ package br.com.vinigodoy.clustering.data;
 
 import java.util.Comparator;
 
+/**
+ * Measure the distance between two different elements.
+ *
+ * Unless you want to use a cache, this is the only operation needed for knn algorithm. For caching, just implement
+ * equals and hashcode methods in the element as well.
+ *
+ * @param <T> The element type.
+ */
 public interface DistanceMeasurer<T> {
     /**
      * Calculate the distance between two different elements

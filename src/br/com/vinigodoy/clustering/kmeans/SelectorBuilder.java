@@ -1,5 +1,6 @@
 package br.com.vinigodoy.clustering.kmeans;
 
+import br.com.vinigodoy.clustering.data.DataSource;
 import br.com.vinigodoy.clustering.data.ElementSolver;
 
 import java.util.ArrayList;
@@ -28,9 +29,10 @@ public class SelectorBuilder<T> {
     }
 
     /**
-     * Avoid using duplicate data points when selecting centroids. Duplications are discarded by hashcode.
+     * Avoid using duplicate data points when selecting centroids. Duplications are discarded by hashCode.
      * @param unique If true, remove duplicate data.
      * @return This builder
+     * @see Object#hashCode()
      */
     public SelectorBuilder<T> unique(boolean unique) {
         this.unique = unique;
@@ -41,13 +43,16 @@ public class SelectorBuilder<T> {
         return data.get(RND.nextInt(data.size()));
     }
 
-    private Collection<T> copy(Iterable<T> data, Collection<T> collection) {
-        final var it = data.iterator();
-        while (it.hasNext() && collection.size() < limit) collection.add(it.next());
-        return collection;
+    private Collection<T> copy(DataSource<T> data, Collection<T> collection) {
+        try (final var it = data.iterator()) {
+            while (it.hasNext() && collection.size() < limit) collection.add(it.next());
+            return collection;
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to open datasource", e);
+        }
     }
 
-    private List<T> toList(Iterable<T> data) {
+    private List<T> toList(DataSource<T> data) {
         return unique ?
             (ArrayList<T>) copy(data, new ArrayList<>()) :
             new ArrayList<>(copy(data, new HashSet<>()));

@@ -1,5 +1,7 @@
 package br.com.vinigodoy.clustering.data.image;
 
+import br.com.vinigodoy.clustering.data.DataIterator;
+import br.com.vinigodoy.clustering.data.DataSource;
 import br.com.vinigodoy.clustering.kmeans.CentroidSelector;
 
 import javax.imageio.ImageIO;
@@ -11,7 +13,7 @@ import java.util.Iterator;
 
 import static br.com.vinigodoy.clustering.kmeans.CentroidSelector.RND;
 
-public class ImageDatasource implements Iterable<RGB> {
+public class ImageDatasource implements DataSource<RGB> {
     private final BufferedImage image;
 
     public ImageDatasource(BufferedImage image) {
@@ -50,8 +52,8 @@ public class ImageDatasource implements Iterable<RGB> {
     }
 
     @Override
-    public Iterator<RGB> iterator() {
-        return new Iterator<>() {
+    public DataIterator<RGB> iterator() {
+        return DataIterator.of(new Iterator<>() {
             private int pixel = -1;
 
             @Override
@@ -66,6 +68,6 @@ public class ImageDatasource implements Iterable<RGB> {
                 final var y = pixel / image.getWidth();
                 return new RGB(image.getRGB(x, y));
             }
-        };
+        });
     }
 }

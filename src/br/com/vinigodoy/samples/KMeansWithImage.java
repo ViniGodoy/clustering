@@ -22,10 +22,10 @@ public class KMeansWithImage {
             //Use an efficient random centroid selector for images
             final var kmeans =
                     new Kmeans<>(new RGBSolver(), ds.random())
-                            .train(ds, CLUSTERS); //Do the trainig
+                            .train(ds, CLUSTERS); //Do the training
 
             //Set the output color based on the closest point to each centroid. This will guarantee that only colors
-            //present in the image will be in the output. If you ommit this line, random colors will be used.
+            //present in the image will be in the output. If you suppress this line, random colors will be used.
             out.setColorsByClosest(kmeans);
 
             //Classify the image based in the output.

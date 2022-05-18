@@ -7,14 +7,15 @@ public class Cluster<T> {
         private final T centroid;
         private final ElementSolver<T> solver;
 
-        private T sum = null;
-        private int count = 0;
-        private double distances = 0;
+        private final T sum;
+        private int count;
+        private double distances;
 
         private T closest = null;
         private double closestDist = Double.MAX_VALUE;
 
         protected Cluster(int label, T centroid, ElementSolver<T> solver) {
+            this.sum = solver.create();
             this.label = label;
             this.centroid = centroid;
             this.solver = solver;
@@ -22,8 +23,8 @@ public class Cluster<T> {
 
         protected void add(T element) {
             count += 1;
-            if (sum == null) sum = element;
-            else solver.accumulate(sum, element);
+
+            solver.accumulate(sum, element);
 
             final var distance = solver.distance(element, centroid);
             distances += distance;

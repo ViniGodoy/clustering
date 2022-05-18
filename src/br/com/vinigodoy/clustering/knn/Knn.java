@@ -1,6 +1,7 @@
 package br.com.vinigodoy.clustering.knn;
 
 import br.com.vinigodoy.clustering.data.DataOutput;
+import br.com.vinigodoy.clustering.data.DataSource;
 import br.com.vinigodoy.clustering.data.DistanceMeasurer;
 
 import java.util.*;
@@ -96,7 +97,7 @@ public class Knn<T> {
         return cache.get(hash);
     }
 
-    public Knn<T> classify(Iterable<T> data, DataOutput<T> output) {
+    public Knn<T> classify(DataSource<T> data, DataOutput<T> output) {
         data.forEach(d -> output.write(classify(d)));
         return this;
     }

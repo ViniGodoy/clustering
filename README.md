@@ -11,7 +11,7 @@ Image taken by [@jcbritobr](https://github.com/jcbritobr/) and used with permiss
 
 ### Knn 
 
-For this example, we use the following RGB samples for each class:
+For [this example](/samples/KMeansWithImage.java), we use the following RGB samples for each class:
 
 | Plant         | Soil          | Sky           |
 |---------------|---------------|---------------|
@@ -20,19 +20,18 @@ For this example, we use the following RGB samples for each class:
 | 41, 47, 39    | 230, 212, 191 | 59, 130, 195  |
 | 168, 166, 107 |               | 196, 210, 231 |
 
-A k=3 results in the following output:
+Using k=3 generate the following output:
 
 <img src="/images/field.jpg" alt="original" width="400" height="300"/> <img src="/images/knn-field.png" alt="knn with 3 classes" width="400" height="300"/>
 
 ### K-means with 20 classes
 
-This sample use k-means to simplify the image into just 20 colors. Closest point to centroid is used as the color of 
-each class:
+[This sample](/samples/KnnWithImage.java) use k-means to simplify the image into just 20 colors. Closest point to centroid is used as the color of each class:
 
 <img src="/images/field.jpg" alt="original" width="400" height="300"/> <img src="/images/kmeans-20-field.png" alt="Kmeans 20 classes" width="400" height="300"/>
 
 ## Change History
-
+- 18/mai/2002 - Improved DataSource and DataIterator concepts, allowing huge datasets to be used.
 - 13/mai/2022 - Separated measurer into 2 interfaces. Replaced Selectors class by SelectorBuilder.
 - 12/mai/2022 - Added centroid selection strategies.
 - 11/mai/2022 - Full rewrite of the project. 

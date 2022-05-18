@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public final class Vector implements Cloneable {
-
     public double[] v;
 
     public Vector(double... values) {
@@ -38,6 +37,14 @@ public final class Vector implements Cloneable {
         return v.clone().normalize();
     }
 
+    public static double distance(Vector v1, Vector v2) {
+        return Math.sqrt(distanceSqr(v1, v2));
+    }
+
+    public static double distanceSqr(Vector v1, Vector v2) {
+        return subtract(v1, v2).getSizeSqr();
+    }
+
     public Vector add(double... values) {
         if (values.length != v.length) {
             throw new IllegalArgumentException("Trying to add different vectors! " + v.length + " != " + values.length);
@@ -50,11 +57,6 @@ public final class Vector implements Cloneable {
 
     public Vector add(Vector other) {
         return add(other.v);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        return o.getClass() == getClass() && Objects.equals(this, o);
     }
 
     public Vector subtract(double... values) {
@@ -122,28 +124,16 @@ public final class Vector implements Cloneable {
     }
 
     public Vector normalize() {
-        final var size = getSize();
-        if (size == 0) {
-            return this;
-        }
-        return divide(size);
-    }
-
-    public double distance(Vector other) {
-        return subtract(this, other).getSize();
-    }
-
-    public double distanceSqr(Vector other) {
-        return subtract(this, other).getSizeSqr();
-    }
-
-    @Override
-    protected Vector clone() {
-        return new Vector(Arrays.copyOf(v, v.length));
+        return getSizeSqr() == 0 ? this : divide(getSize());
     }
 
     public double[] toArray() {
         return Arrays.copyOf(v, v.length);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return o.getClass() == getClass() && Objects.equals(this, o);
     }
 
     @Override
@@ -154,6 +144,11 @@ public final class Vector implements Cloneable {
     @Override
     public String toString() {
         return toString("%.4f");
+    }
+
+    @Override
+    protected Vector clone() {
+        return new Vector(Arrays.copyOf(v, v.length));
     }
 
     public String toString(String numberFormat) {

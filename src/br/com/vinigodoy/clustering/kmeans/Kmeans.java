@@ -1,6 +1,7 @@
 package br.com.vinigodoy.clustering.kmeans;
 
 import br.com.vinigodoy.clustering.data.DataOutput;
+import br.com.vinigodoy.clustering.data.DataSource;
 import br.com.vinigodoy.clustering.data.ElementSolver;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class Kmeans<T> {
         return List.copyOf(clusters);
     }
 
-    private void createRandomClusters(Iterable<T> data, int classes) {
+    private void createRandomClusters(DataSource<T> data, int classes) {
         final var centroids = centroidSelector.initialCentroids(data, classes);
         clusters = new ArrayList<>();
         var label = 0;
@@ -62,7 +63,7 @@ public class Kmeans<T> {
         return findCluster(element, clusters);
     }
 
-    private void doClustering(Iterable<T> ds, List<Cluster<T>> clusters) {
+    private void doClustering(DataSource<T> ds, List<Cluster<T>> clusters) {
         ds.forEach(elem -> findCluster(elem, clusters).add(elem));
     }
 
@@ -79,7 +80,7 @@ public class Kmeans<T> {
     }
 
 
-    public Kmeans<T> train(Iterable<T> ds, int classes) {
+    public Kmeans<T> train(DataSource<T> ds, int classes) {
         createRandomClusters(ds, classes);
         doClustering(ds, clusters);
 
@@ -95,7 +96,7 @@ public class Kmeans<T> {
         return this;
     }
 
-    public Kmeans<T> classify(Iterable<T> data, DataOutput<T> out) {
+    public Kmeans<T> classify(DataSource<T> data, DataOutput<T> out) {
         data.forEach(d -> out.write(findCluster(d).getLabel()));
         return this;
     }

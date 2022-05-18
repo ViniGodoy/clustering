@@ -6,7 +6,6 @@ import br.com.vinigodoy.clustering.kmeans.Kmeans;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class ImageOutput implements DataOutput<RGB> {
