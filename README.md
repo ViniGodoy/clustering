@@ -31,7 +31,7 @@ Using k=3 generate the following output:
 <img src="/images/field.jpg" alt="original" width="400" height="300"/> <img src="/images/kmeans-20-field.png" alt="Kmeans 20 classes" width="400" height="300"/>
 
 ## Change History
-- 18/mai/2002 - Improved DataSource and DataIterator concepts, allowing huge datasets to be used.
+- 18/mai/2022 - Improved DataSource and DataIterator concepts, allowing huge datasets to be used.
 - 13/mai/2022 - Separated measurer into 2 interfaces. Replaced Selectors class by SelectorBuilder.
 - 12/mai/2022 - Added centroid selection strategies.
 - 11/mai/2022 - Full rewrite of the project. 
